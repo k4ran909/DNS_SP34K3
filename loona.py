@@ -17,7 +17,8 @@ except socket.error as e:
     sys.exit()
 
 dns_req = IP(dst=sys.argv[3]) / UDP(dport=53) / DNS(rd=1, qd=DNSQR(qname=hostname, qtype='SOA'))
-   calc = sr1(dns_req, verbose=0)
+
+calc = sr1(dns_req, verbose=0)
    if calc is None:
        print("No response from DNS server.")
        sys.exit()
