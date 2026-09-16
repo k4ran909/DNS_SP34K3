@@ -1,7 +1,7 @@
 from scapy.all import *
-   import time
-   import sys
-   import socket
+import time
+import sys
+import socket
 
    if len(sys.argv) < 5:
        print("Usage: python3 <program> TARGET_IP TARGET_PORT DNS_SERVER REQUEST_TYPE(ALL CAPS)")
