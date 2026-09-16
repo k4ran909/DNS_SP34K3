@@ -7,8 +7,16 @@ if len(sys.argv) < 5:
     print("Usage: python3 <program> TARGET_IP TARGET_PORT DNS_SERVER REQUEST_TYPE(ALL CAPS)")
     sys.exit()
 
-   # Construct the initial DNS query to calculate the response size
-   dns_req = IP(dst=sys.argv[3]) / UDP(dport=53) / DNS(rd=1, qd=DNSQR(qname=hostname, qtype='SOA'))
+try:
+    # Resolve the IP address of the target website
+    hostname = 'loonacampus.com'
+    target_ip = socket.gethostbyname(hostname)
+    print(f"Resolved IP address: {target_ip}")
+except socket.error as e:
+    print(f"Error resolving hostname: {e}")
+    sys.exit()
+
+dns_req = IP(dst=sys.argv[3]) / UDP(dport=53) / DNS(rd=1, qd=DNSQR(qname=hostname, qtype='SOA'))
    calc = sr1(dns_req, verbose=0)
    if calc is None:
        print("No response from DNS server.")
